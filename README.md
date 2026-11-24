@@ -6,7 +6,25 @@
 
 ## 项目截图
 
-![律智枢登录页面](images/lvzhishu-login.jpg)
+### 登录页面
+
+![律智枢登录页面](images/lvzhishu-login.png)
+
+### 首页概览
+
+![律智枢首页概览](images/lvzhishu-dashboard.png)
+
+### 法律智能问答
+
+![律智枢法律智能问答](images/lvzhishu-assistant.png)
+
+### 法律法规检索
+
+![律智枢法律法规检索](images/lvzhishu-law-search.png)
+
+### 运营监控
+
+![律智枢运营监控](images/lvzhishu-monitor.png)
 
 ## 主要功能
 
