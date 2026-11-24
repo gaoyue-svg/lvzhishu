@@ -1,0 +1,38 @@
+[project]
+name = "lawrag"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi[standard]>=0.115.0",
+    "sqlalchemy[asyncio]>=2.0.30",
+    "aiomysql>=0.2.0",
+    "redis>=5.0.0",
+    "pyjwt>=2.8.0",
+    "bcrypt>=4.0.0",
+    "python-dotenv>=1.0.0",
+    "uvicorn[standard]>=0.30.0",
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+    "pdfplumber>=0.10.0",
+    "python-docx>=1.1.0",
+    "pywin32>=306; sys_platform == 'win32'",
+    "beautifulsoup4>=4.12.0",
+    "lxml>=5.0.0",
+    "oss2>=2.18.0",
+    "aiofiles>=24.0.0",
+    "python-multipart>=0.0.9",
+    "pymilvus>=2.4.0",
+    "openai>=1.50.0",
+    "jieba>=0.42.1",
+    "rank-bm25>=0.2.2",
+    "httpx>=0.27.0",
+    "tiktoken>=0.7.0",
+    "langgraph>=0.2.0",
+    "json-repair>=0.61.7",
+    "rapidocr-onnxruntime>=1.4.4",
+    "mcp>=2.0.0",
+    "PyMuPDF>=1.24.0",
+    "alibabacloud_ocr_api20210707>=2.0.0",
+    "alibabacloud_tea_util>=0.3.0",
+    "prometheus-client>=0.20.0",
+]

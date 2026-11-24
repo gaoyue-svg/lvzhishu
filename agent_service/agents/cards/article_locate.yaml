@@ -1,0 +1,23 @@
+# 法条定位 Agent 卡片
+agent_card:
+  key: article_locate
+  name: 法条定位
+  description: 定位具体法条、条款树整理、条文解释
+  when_to_use:
+    - "query 含法条编号+法律名"
+    - "query 含法律名+主题查询"
+  when_not_to_use:
+    - "无明确法律依据，纯咨询类"
+  tools: ["article_tree"]
+  inputs:
+    query: {required: true}
+    legal_context: {required: false, from: intent}
+  outputs:
+    chunks: slot.law_chunks
+    citations: slot.law_cites
+  retrieval: true
+  top_k: 20
+  rerank_top_k: 10
+  temperature: 0.1
+  parallel_ok: true
+  model_tier: default

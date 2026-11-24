@@ -1,0 +1,25 @@
+# 案例分析 Agent 卡片：本地检索 + 联网类案（必应中文搜索 MCP 预留位）
+agent_card:
+  key: case_analysis
+  name: 案例分析
+  description: 类案检索、裁判规则归纳、联网搜索相似案例
+  when_to_use:
+    - "query 含案例/判例/裁判规则/实际案件/案例检索等关键词"
+    - "用户要求搜索近期热门/典型案例"
+    - "需要结合裁判实践分析"
+  when_not_to_use:
+    - "仅查询法条条文"
+  tools: ["web_search"]
+  inputs:
+    query: {required: true}
+    sub_questions: {required: false, from: intent}
+  outputs:
+    chunks: slot.case_chunks
+    citations: slot.case_cites
+  retrieval: true
+  top_k: 20
+  rerank_top_k: 10
+  temperature: 0.3
+  parallel_ok: true
+  model_tier: default
+  needs_web: true

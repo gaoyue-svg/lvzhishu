@@ -1,0 +1,20 @@
+# 风险报告子 Agent 卡片：合同预置工作流第四步
+agent_card:
+  key: contract_risk_report
+  name: 风险报告
+  description: 汇总条款/规则风险/法条依据，输出结构化风险与审查报告
+  when_to_use:
+    - "合同工作流第四步：生成风险报告"
+  when_not_to_use:
+    - "非合同审查场景"
+  tools: []
+  inputs:
+    chunks: {required: true, from: slot.clauses}
+    tool_calls: {required: true, from: slot.rule_risks}
+    context_text: {required: false, from: slot.law_context}
+  outputs:
+    answer: slot.report
+  retrieval: false
+  temperature: 0.1
+  parallel_ok: false
+  model_tier: default

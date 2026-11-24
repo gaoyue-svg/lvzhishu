@@ -1,0 +1,18 @@
+# 合同要素提取子 Agent 卡片：合同预置工作流（含上传模式）要素/摘要步骤
+agent_card:
+  key: contract_elements
+  name: 要素提取
+  description: 读取合同条款，输出合同摘要与关键要素结构化数据
+  when_to_use:
+    - "合同工作流中提取当事人/金额/期限/管辖等关键要素并生成摘要"
+  when_not_to_use:
+    - "非合同审查场景"
+  tools: []
+  inputs:
+    chunks: {required: true, from: slot.clauses}
+  outputs:
+    answer: slot.elements
+  retrieval: false
+  temperature: 0.1
+  parallel_ok: true
+  model_tier: default

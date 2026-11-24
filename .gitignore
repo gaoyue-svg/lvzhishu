@@ -1,0 +1,62 @@
+# Python caches and build outputs
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+wheels/
+*.egg-info/
+
+# Virtual environments and local tooling
+.venv/
+venv/
+env/
+.python-version
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+
+# IDE and OS files
+.idea/
+.vscode/
+.screenshots/
+.tmp*/
+.uv-cache/
+.uv-python/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Frontend and service build artifacts
+node_modules/
+.next/
+coverage/
+logs/
+*.log
+
+# Duplicate scaffold project not used by the root backend app
+LawRAG/
+
+# Local runtime data (docker volumes, local storage, bm25 index, uploads)
+docker/volumes/
+storage/
+uploads/
+
+# Frontend build cache
+frontend/tsconfig.tsbuildinfo
+
+# Local scripts data (large docx samples)
+scripts/data/

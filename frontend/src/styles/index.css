@@ -1,0 +1,139 @@
+/* 全局样式变量与基础排版，保证 LawAgent 后台界面的一致视觉语言。 */
+:root {
+  /* 深蓝藏青主色: 庄重、专业、法律感 */
+  --law-primary: #1e3a5f;
+  --law-primary-strong: #0f2644;
+  --law-primary-soft: #e8edf3;
+  --law-accent: #2c5282;
+  /* 鎏金点缀色: 法律主题经典金色，用于徽章标签 */
+  --law-gold: #c9a96e;
+  --law-gold-strong: #a8894a;
+  --law-gold-soft: #f7f1e5;
+
+  --law-sidebar: #f8f9fc;
+  --law-sidebar-soft: #eef1f6;
+  --law-bg: #f4f6f9;
+  --law-bg-base: #f4f6f9;
+  --law-bg-soft: #e9ecf2;
+  --law-bg-veil-1: rgba(30, 58, 95, 0.08);
+  --law-bg-veil-2: rgba(201, 169, 110, 0.06);
+  --law-card: #ffffff;
+  --law-card-soft: #fbfcfe;
+  --law-text: #1a2533;
+  --law-muted: #4a5a6d;
+  --law-muted-soft: #7a899b;
+  --law-border: #d5dbe4;
+  --law-border-soft: #e3e8ef;
+  --law-shadow: 0 10px 30px rgba(15, 38, 68, 0.07);
+  --law-shadow-soft: 0 4px 14px rgba(15, 38, 68, 0.05);
+  --law-ring: rgba(30, 58, 95, 0.14);
+  --law-radius-card: 20px;
+  --law-radius-control: 12px;
+  --law-placeholder: #8896a6;
+
+  /* 与原版主题保持一致，Element Plus 遮罩不压暗工作台。 */
+  --el-color-primary: var(--law-primary);
+  --el-color-primary-light-3: #3d5a82;
+  --el-color-primary-light-5: #6b84a3;
+  --el-color-primary-light-7: #a3b4c9;
+  --el-color-primary-light-9: #e4eaf3;
+  --el-color-primary-dark-2: var(--law-primary-strong);
+  --el-mask-color: transparent;
+  --el-mask-color-extra-light: transparent;
+
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: var(--law-text);
+  background: var(--law-bg);
+}
+
+/*
+ * 浏览器翻译扩展可能在根节点注入半透明主题，导致整个应用统一发灰。
+ * 这里只恢复页面不透明度，不覆盖扩展功能，也不改变任何组件视觉样式。
+ */
+html,
+html[data-immersive-translate-page-theme] {
+  opacity: 1 !important;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  position: relative;
+  color: var(--law-text);
+  background: var(--law-bg-base);
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 240ms ease, color 240ms ease;
+}
+
+/* 氛围背景层：浅色下极淡（几乎不可见），深色下保持星云感。
+   两个主题共用同一组定位，仅颜色随 CSS 变量切换。 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60vw 60vw at 8% -8%, var(--law-bg-veil-1) 0%, transparent 55%),
+    radial-gradient(50vw 50vw at 102% 4%, var(--law-bg-veil-2) 0%, transparent 60%),
+    var(--law-bg-base);
+  opacity: 0.9;
+  transition: opacity 240ms ease;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+.page-fade-enter-active,
+.page-fade-leave-active {
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.page-fade-enter-from,
+.page-fade-leave-to {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.law-card {
+  border: 1px solid var(--law-border);
+  border-radius: var(--law-radius-card);
+  background: var(--law-card);
+  box-shadow: var(--law-shadow);
+}
+
+.el-button {
+  border-radius: var(--law-radius-control);
+}
+
+.el-input__wrapper,
+.el-select__wrapper {
+  border-radius: 12px;
+  box-shadow: 0 0 0 1px var(--law-border) inset;
+}
+
+.el-card {
+  border-radius: var(--law-radius-card);
+}
+
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+}

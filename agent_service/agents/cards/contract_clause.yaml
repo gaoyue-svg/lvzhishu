@@ -1,0 +1,18 @@
+# 合同理解子 Agent 卡片：合同预置工作流第一步
+agent_card:
+  key: contract_clause
+  name: 合同理解
+  description: 读取结构化合同条款，LLM 补充分类与实体抽取
+  when_to_use:
+    - "合同工作流第一步：条款结构化"
+  when_not_to_use:
+    - "非合同审查场景"
+  tools: []
+  inputs:
+    document_id: {required: true, from: user}
+  outputs:
+    chunks: slot.clauses
+  retrieval: false
+  temperature: 0.1
+  parallel_ok: false
+  model_tier: default

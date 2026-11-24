@@ -1,0 +1,25 @@
+# 合同审查 Agent 卡片：单 Agent 入口，也可作为合同预置工作流的直达入口
+agent_card:
+  key: contract_review
+  name: 合同审查
+  description: 单 Agent 合同审查入口，抽取合同文本后调用规则引擎与 LLM 审查
+  when_to_use:
+    - "已上传合同文档且要求审查风险"
+    - "明确审查意图"
+  when_not_to_use:
+    - "未上传合同文件的咨询"
+  tools: ["contract_clause_parser", "contract_risk_rules"]
+  inputs:
+    query: {required: true}
+    document_id: {required: true, from: user}
+    review_dimensions: {required: false, from: user}
+  outputs:
+    chunks: slot.law_chunks
+    citations: slot.law_cites
+  retrieval: true
+  top_k: 10
+  rerank_top_k: 10
+  temperature: 0.1
+  parallel_ok: false
+  model_tier: default
+  workflow: contract_review

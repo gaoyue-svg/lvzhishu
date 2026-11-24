@@ -1,0 +1,109 @@
+# LawAgent Prompt 索引
+# 统一管理所有 LLM Prompt 的元信息：key → md 文件 + 描述 + 模板变量
+# md 文件位于同目录的 md/ 子目录下，由 loader.py 启动时一次性加载到内存
+
+version: 1
+
+# System Prompt：纯文本，无占位符，通过 get_prompt(name) 读取
+system_prompts:
+  router_system:
+    file: md/router_system.md
+    description: Router Agent 路由器系统提示词与 Few-Shot 示例
+  base_agent_system:
+    file: md/base_agent_system.md
+    description: BaseAgent 默认系统约束，所有业务 Agent 共享
+  law_qa_system:
+    file: md/law_qa_system.md
+    description: 法律咨询 Agent 系统提示词
+  memory_summary_system:
+    file: md/memory_summary_system.md
+    description: 长会话历史压缩为稳定案件摘要的系统提示词
+  labor_wage_arrears_system:
+    file: md/labor_wage_arrears_system.md
+  labor_wage_arrears_amount_system:
+    file: md/labor_wage_arrears_amount_system.md
+  labor_wage_arrears_recovery_system:
+    file: md/labor_wage_arrears_recovery_system.md
+    description: 欠薪维权子意图专项提示词
+  labor_arbitration_limitation_system:
+    file: md/labor_arbitration_limitation_system.md
+    description: 离职后劳动仲裁时效子意图专项提示词
+  labor_termination_compensation_system:
+    file: md/labor_termination_compensation_system.md
+    description: 辞退补偿及N/N+1/2N子意图专项提示词
+  traffic_medical_expense_system:
+    file: md/traffic_medical_expense_system.md
+    description: 交通事故医疗费、医保与车险赔付子意图专项提示词
+  loan_limitation_followup_system:
+    file: md/loan_limitation_followup_system.md
+    description: 民间借贷诉讼时效连续追问与事实回忆专项提示词
+  lease_repair_followup_system:
+    file: md/lease_repair_followup_system.md
+  lease_repair_notice_evidence_system:
+    file: md/lease_repair_notice_evidence_system.md
+  lease_repair_notice_timeline_system:
+    file: md/lease_repair_notice_timeline_system.md
+  lease_repair_fact_update_system:
+    file: md/lease_repair_fact_update_system.md
+  lease_repair_damage_update_system:
+    file: md/lease_repair_damage_update_system.md
+  lease_repair_case_recap_system:
+    file: md/lease_repair_case_recap_system.md
+  lease_repair_termination_system:
+    file: md/lease_repair_termination_system.md
+  lease_repair_settlement_system:
+    file: md/lease_repair_settlement_system.md
+    description: 房屋租赁漏水及出租人维修义务连续追问专项提示词
+  renovation_contract_followup_system:
+    file: md/renovation_contract_followup_system.md
+    description: 装修合同延期、质量、损失、解除与长对话回顾专项提示词
+  article_locate_system:
+    file: md/article_locate_system.md
+    description: 法条定位 Agent 系统提示词
+  case_analysis_system:
+    file: md/case_analysis_system.md
+    description: 案例分析 Agent 系统提示词
+  contract_review_system:
+    file: md/contract_review_system.md
+    description: 合同审查 Agent 系统提示词
+  supervisor_system:
+    file: md/supervisor_system.md
+    description: Supervisor 多 Agent 编排器决策 Prompt
+  contract_supervisor_system:
+    file: md/contract_supervisor_system.md
+    description: 合同审查多 Agent 编排器决策 Prompt，约束 clause→rule→rag→report 顺序
+  synthesizer_system:
+    versions:
+      v1: md/synthesizer_system.md
+      v2: md/synthesizer_system_v2.md
+    description: Synthesizer 答案合成 Prompt（v2 为 A/B 实验替代版本，措辞等价）
+  intent_system:
+    file: md/intent_system.md
+    description: v2 意图识别层 LLM 结构化输出 Prompt（doc 19 §4.1）
+  planner_system:
+    file: md/planner_system.md
+    description: v2 规划层 Plan DAG 生成 Prompt（doc 19 §4.2）
+  reviewer_system:
+    file: md/reviewer_system.md
+    description: v2 审查层 L2 落地抽查 LLM 核验 Prompt（doc 19 §4.4）
+  query_rewrite_system:
+    file: md/query_rewrite_system.md
+    description: 查询改写层 LLM 结构化改写 Prompt（纠错别字 + 口语转法律术语）
+  evaluator_judge_system:
+    file: md/evaluator_judge_system.md
+    description: 离线 LLM-as-Judge 落地支撑与幻觉打分 Prompt（doc 21 Phase 3）
+
+# User Prompt 模板：含 {name} 命名占位符，通过 format_prompt(name, **kwargs) 填充
+user_templates:
+  base_reason_user:
+    file: md/base_reason_user.md
+    description: BaseAgent 通用法律问答 user 模板
+    variables: [query, history_summary, memory, context_text, risk_level, tool_calls, retry_hint]
+  contract_review_user:
+    file: md/contract_review_user.md
+    description: 合同审查专用 user 模板，含合同原文与规则引擎结果
+    variables: [review_dimensions, contract_text, context_text, tool_calls]
+  retry_hint:
+    file: md/retry_hint.md
+    description: 引用校验失败时追加到 user prompt 的修正提示
+    variables: [reasons]

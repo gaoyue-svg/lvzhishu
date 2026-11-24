@@ -1,0 +1,23 @@
+# 普通法律咨询 Agent 卡片：规划器/校验器的唯一事实来源
+agent_card:
+  key: law_qa
+  name: 法律咨询
+  description: 普通法律问题咨询，结合本地法条知识库给出回答
+  when_to_use:
+    - "无明确法条编号或合同对象的纯咨询类问题"
+    - "正式文书生成请求：先检索同类依据和示范文本，再按文书模式输出"
+  when_not_to_use:
+    - "query 含具体法条编号+法律名，应走法条定位"
+    - "需要审查合同或分析案例"
+  tools: []
+  inputs:
+    query: {required: true}
+  outputs:
+    chunks: slot.law_chunks
+    citations: slot.law_cites
+  retrieval: true
+  top_k: 15
+  rerank_top_k: 8
+  temperature: 0.3
+  parallel_ok: true
+  model_tier: default

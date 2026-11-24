@@ -1,0 +1,18 @@
+# 规则检测子 Agent 卡片：合同预置工作流第二步
+agent_card:
+  key: contract_rule
+  name: 规则检测
+  description: 对合同条款跑确定性规则引擎，产出风险候选
+  when_to_use:
+    - "合同工作流第二步：条款规则检测"
+  when_not_to_use:
+    - "非合同审查场景"
+  tools: ["contract_risk_rules"]
+  inputs:
+    chunks: {required: true, from: slot.clauses}
+  outputs:
+    tool_calls: slot.rule_risks
+  retrieval: false
+  temperature: 0.0
+  parallel_ok: false
+  model_tier: default

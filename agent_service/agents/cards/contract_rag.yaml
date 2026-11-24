@@ -1,0 +1,21 @@
+# 法律检索子 Agent 卡片：合同预置工作流第三步
+agent_card:
+  key: contract_rag
+  name: 法律检索
+  description: 对高风险合同条款检索相关法条作为审查依据
+  when_to_use:
+    - "合同工作流第三步：查法条依据"
+  when_not_to_use:
+    - "非合同审查场景"
+  tools: []
+  inputs:
+    chunks: {required: true, from: slot.clauses}
+  outputs:
+    chunks: slot.law_chunks
+    citations: slot.law_cites
+  retrieval: true
+  top_k: 10
+  rerank_top_k: 5
+  temperature: 0.2
+  parallel_ok: false
+  model_tier: default
