@@ -1,50 +1,10 @@
-<!-- 品牌介绍面板：首页左侧展示律智枢产品定位、核心能力与能力亮点。 -->
+<!-- 欢迎面板组件，展示首页主行动入口和平台状态摘要。 -->
 <template>
   <section class="welcome-panel">
     <div class="welcome-copy">
-      <h1 class="brand-title">律智枢</h1>
-      <p class="brand-sub">
-        AI 法律智能工作台
-        <span class="brand-tag">专业 · 智能 · 可信</span>
-      </p>
-
-      <div class="capability-block">
-        <h2>汇法律知识</h2>
-        <p>
-          融合法规检索、案例分析、合同审查与文书生成，为法律从业者提供有依据、可溯源、可执行的智能辅助。
-        </p>
-      </div>
-
-      <ul class="feature-list">
-        <li>
-          <span class="feature-title">权威法源</span>
-          <span class="feature-desc">聚合现行法规、司法解释与裁判规则</span>
-        </li>
-        <li>
-          <span class="feature-title">智能研判</span>
-          <span class="feature-desc">结合案情与检索依据生成专业分析</span>
-        </li>
-        <li>
-          <span class="feature-title">风险与文书</span>
-          <span class="feature-desc">识别合同风险，辅助生成规范法律文书</span>
-        </li>
-      </ul>
-
-      <p class="welcome-footer">© 2026 律智枢 · 基于 RAG 与多 Agent 架构构建</p>
-    </div>
-
-    <div class="assistant-card">
-      <div class="assistant-orbit">
-        <Sparkles :size="30" />
-      </div>
-      <div>
-        <strong>智能检索链路</strong>
-        <span>Query Rewrite → Hybrid Retrieval → Rerank → Citation</span>
-      </div>
-      <el-progress
-        :percentage="92"
-        :stroke-width="8"
-      />
+      <span class="date-text">{{ currentDate }}</span>
+      <h1>欢迎回来，{{ userName }}</h1>
+      <p>今天已有 18 个法律问题通过引用溯源完成答复，知识库与法规索引保持在线。</p>
       <div class="welcome-actions">
         <el-button
           type="primary"
@@ -61,19 +21,39 @@
         </el-button>
       </div>
     </div>
+    <div class="assistant-card">
+      <div class="assistant-orbit">
+        <Sparkles :size="30" />
+      </div>
+      <div>
+        <strong>智能检索链路</strong>
+        <span>Query Rewrite → Hybrid Retrieval → Rerank → Citation</span>
+      </div>
+      <el-progress
+        :percentage="92"
+        :stroke-width="8"
+      />
+    </div>
   </section>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { MessageCircle, Sparkles, UploadCloud } from 'lucide-vue-next'
 
-// 该面板已改为品牌介绍风格，不再依赖 userName。
 defineProps<{
-  userName?: string
+  userName: string
 }>()
 
 const router = useRouter()
+const currentDate = computed(() =>
+  new Intl.DateTimeFormat('zh-CN', {
+    month: 'long',
+    day: 'numeric',
+    weekday: 'long',
+  }).format(new Date()),
+)
 
 function goAssistant() {
   router.push('/assistant')
@@ -102,119 +82,51 @@ function goUpload() {
 
 .welcome-copy {
   min-width: 0;
-  display: grid;
-  gap: 14px;
 }
 
-/* === 品牌标题 === */
-.brand-title {
-  margin: 0;
-  font-size: clamp(34px, 4.2vw, 46px);
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  color: var(--law-primary);
-  line-height: 1.1;
-}
-
-.brand-sub {
-  margin: 0;
-  font-size: 15px;
-  color: var(--law-muted);
-  letter-spacing: 0.03em;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-
-.brand-tag {
+.date-text {
   display: inline-flex;
-  padding: 4px 12px;
+  padding: 6px 11px;
   border-radius: 999px;
+  color: var(--law-primary-strong);
+  background: var(--law-primary-soft);
   font-size: 12px;
-  font-weight: 600;
-  color: var(--law-gold-strong);
-  background: var(--law-gold-soft);
-  letter-spacing: 0.12em;
-}
-
-/* === 核心能力 === */
-.capability-block {
-  margin-top: 6px;
-  padding-top: 18px;
-  border-top: 1px dashed var(--law-border-soft);
-}
-
-.capability-block h2 {
-  margin: 0 0 8px;
-  font-size: 17px;
   font-weight: 700;
-  color: var(--law-text);
-  letter-spacing: 0.04em;
+  line-height: 1.4;
 }
 
-.capability-block p {
+.welcome-copy h1 {
+  margin: 15px 0 10px;
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.welcome-copy p {
+  max-width: 640px;
   margin: 0;
   color: var(--law-muted);
-  font-size: 14px;
-  line-height: 1.85;
+  font-size: 15px;
+  line-height: 1.8;
 }
 
-/* === 能力亮点列表 === */
-.feature-list {
-  display: grid;
-  gap: 10px;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-
-.feature-list li {
-  display: grid;
-  grid-template-columns: 96px minmax(0, 1fr);
+.welcome-actions {
+  display: flex;
+  flex-wrap: wrap;
   gap: 12px;
-  align-items: baseline;
-  padding: 8px 0;
-  border-bottom: 1px dashed var(--law-border-soft);
+  margin-top: 22px;
 }
 
-.feature-list li:last-child {
-  border-bottom: 0;
-}
-
-.feature-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--law-primary);
-  letter-spacing: 0.04em;
-}
-
-.feature-desc {
-  font-size: 13px;
-  color: var(--law-muted);
-  line-height: 1.7;
-}
-
-/* === 页脚声明 === */
-.welcome-footer {
-  margin: 8px 0 0;
-  font-size: 11px;
-  color: var(--law-faint);
-  letter-spacing: 0.06em;
-}
-
-/* === 右侧卡片 === */
 .assistant-card {
   min-width: 0;
   display: grid;
-  align-content: start;
-  gap: 14px;
+  align-content: center;
+  gap: 16px;
   padding: 22px;
   border: 1px solid var(--law-border-soft);
   border-radius: 22px;
   background: rgba(255, 255, 255, 0.78);
   box-shadow: 0 12px 30px rgba(15, 38, 68, 0.06);
-  align-self: start;
 }
 
 .assistant-orbit {
@@ -241,13 +153,6 @@ function goUpload() {
   color: var(--law-muted);
   font-size: 13px;
   line-height: 1.6;
-}
-
-.welcome-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 6px;
 }
 
 @media (max-width: 1180px) {

@@ -107,7 +107,7 @@ import RagTab from './components/RagTab.vue'
 import TracesTab from './components/TracesTab.vue'
 import './monitor.css'
 
-const RANGES = [7, 14, 30]
+const RANGES = [7, 14, 30, 90]
 const TABS = [
   { key: 'overview', num: '01', label: '总览' },
   { key: 'questions', num: '02', label: '执行链路' },
@@ -120,7 +120,7 @@ const TABS = [
 type TabKey = (typeof TABS)[number]['key']
 
 const tab = ref<TabKey>('overview')
-const sinceDays = ref(7)
+const sinceDays = ref(30)
 const refreshTick = ref(0)
 const refreshing = ref(false)
 const syncedAt = ref('')
